@@ -13,6 +13,24 @@ const HeroSection = () => {
       ];
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const nextText = () => {
+      setCurrentIndex((currentIndex + 1) % textData.length);
+      animateText();
+    };
+  
+    const prevText = () => {
+      setCurrentIndex((currentIndex - 1 + textData.length) % textData.length);
+      animateText();
+    };
+  
+    const animateText = () => {
+      const textItem = document.getElementById('textAnimation');
+      textItem.classList.add('animation');
+      setTimeout(() => {
+        textItem.classList.remove('animation');
+      }, 1000); // Adjust the timeout to match your animation duration
+    };
+
   return (
     <>
     <section className="hero-section">
@@ -23,17 +41,27 @@ const HeroSection = () => {
       </div>
     </section>
 
-<div className="carousel-container my-8">
-  <img src={RightArrow} alt="arrow" className="next-button" onClick={() => setCurrentIndex((currentIndex - 1 + textData.length) % textData.length)}/>
+    <div className="carousel-container my-8">
+      <img
+        src={RightArrow}
+        alt="arrow"
+        className="next-button"
+        onClick={prevText}
+      />
 
-<div className="text-carousel">
-  <div
-    className="text-item">
-    {textData[currentIndex]}
-  </div>
-</div>
-  <img src={LeftArrow} alt="arrow" className="next-button" onClick={() => setCurrentIndex((currentIndex + 1) % textData.length)}/>
-</div>
+      <div className="text-carousel">
+        <div className="text-item" id="textAnimation">
+          {textData[currentIndex]}
+        </div>
+      </div>
+
+      <img
+        src={LeftArrow}
+        alt="arrow"
+        className="next-button"
+        onClick={nextText}
+      />
+    </div>
 </>
   )
 }

@@ -47,7 +47,9 @@ code {
 .homeContainer{
   
 }
+.header-icon:hover{
 
+}
 header {
   padding: 10px;
   color: white;
@@ -136,3 +138,23 @@ letter-spacing: 0.6px;
 .next-button{
   cursor: pointer;
 }
+
+@keyframes cursor {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+/* #textAnimation::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  border-right: 2px solid #000; 
+  animation: cursor 1s linear infinite; 
+  margin-right: 4px; 
+} */

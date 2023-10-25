@@ -18,8 +18,8 @@ const Header = () => {
         </div>
         {showIcons && (
           <div className="icon-container">
-            <img className='my-4' src={Comment} alt="comment" />
-            <img src={Account} alt="Account" />
+            <img className='header-icon my-4' src={Comment} alt="comment" />
+            <img className='header-icon' src={Account} alt="Account" />
           </div>
         )}
       </div>

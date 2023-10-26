@@ -16,9 +16,8 @@ const HeroSection = () => {
   const [cursorEnd, setCursorEnd] = useState(0);
   const [showCursor, setShowCursor] = useState(false);
   const [displayText, setDisplayText] = useState(textData[0]);
-  const [cursorPosition, setCursorPosition] = useState(0); // To store the text to display
 
-  const animationSpeed = 25; // Adjust this value to control the animation speed
+  const animationSpeed = 25; 
 
   useEffect(() => {
     if (isAnimating) {
@@ -35,7 +34,7 @@ const HeroSection = () => {
             setCursorEnd(0);
           }, 500);
         }
-      }, animationSpeed); // Adjust this value for faster animation
+      }, animationSpeed);
       return () => clearInterval(animationInterval);
     }
   }, [cursorEnd, isAnimating, currentIndex,]);
@@ -51,6 +50,11 @@ const HeroSection = () => {
     }
   };
 
+  const prevText = () => {
+    const prevIndex = (currentIndex - 1 + textData.length) % textData.length;
+    setCurrentIndex(prevIndex);
+  };
+
   return (
     <div className="hero-section">
       <div className="hero-words">
@@ -58,36 +62,25 @@ const HeroSection = () => {
           <span key={index}>{word}</span>
         ))}
       </div>
+
+      
       <div className="carousel-container my-8">
-        <img
-          src={RightArrow}
-          alt="arrow"
-          className="next-button"
-          onClick={nextText}
-        />
-        <div className="text-carousel">
-          <div className="text-item" id="textAnimation">
-            <span className="cursor" style={{ visibility: showCursor ? 'visible' : 'hidden' }}>|</span>
-            {displayText}
-            <span className="cursor" style={{ visibility: showCursor ? 'visible' : 'hidden' }}>|</span>
-          </div>
+      <img src={RightArrow} alt="arrow" className="next-button" onClick={prevText} />
+      <div className="text-carousel">
+        <div className="text-item" id="textAnimation">
+          <span className="cursor" style={{ visibility: showCursor ? "visible" : "hidden" }}>|</span>
+          {displayText}
+          <span className="cursor" style={{ visibility: showCursor ? "visible" : "hidden" }}>|</span>
         </div>
-        <img
-          src={LeftArrow}
-          alt="arrow"
-          className="next-button"
-          onClick={() => {
-            if (!isAnimating) {
-              setCurrentIndex(textData.length - 1);
-              setShowCursor(true);
-              setIsAnimating(true);
-              setCursorStart(0);
-              setCursorEnd(0);
-              setDisplayText(textData[currentIndex].slice(0, cursorEnd)); 
-            }
-          }}
-        />
       </div>
+      <img
+        src={LeftArrow}
+        alt="arrow"
+        className="next-button"
+        onClick={nextText}
+      />
+  
+    </div>
     </div>
   );
 };

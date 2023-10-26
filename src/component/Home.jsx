@@ -5,6 +5,7 @@ import Logo from "../assets/asset_brand_iamai.svg";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import HeroSection from "./HeroSection";
 
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [recordingCount, setRecordingCount] = useState(0);
   const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const [countdown, setCountdown] = useState(6);
 
   let recordingInterval;
 
@@ -46,19 +48,43 @@ const Home = () => {
   const handleStartMic = () => {
     if (isRecording) {
       setIsRecording(false);
-      setShowInput(true); 
+      setShowInput(true);
       setIsConverting(false);
-      clearInterval(recordingInterval); 
+      clearInterval(recordingInterval);
     } else {
       setIsRecording(true);
-      setShowInput(false); 
+      setShowInput(false);
       setIsConverting(false);
-      setRecordingCount(0); 
+      setRecordingCount(0);
       startRecordingTimer();
+  
+      // Show the countdown circle
+      const countdownCircle = document.getElementById("countdownCircle");
+      if (countdownCircle) {
+        countdownCircle.style.display = "block";
+      }
+  
+      // Start countdown animation
+      setCountdown(6); // Set initial countdown value
+      const countdownInterval = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          setIsRecording(false);
+          setShowInput(true);
+          setIsConverting(false);
+  
+          // Hide the countdown circle when the countdown is complete
+          if (countdownCircle) {
+            countdownCircle.style.display = "none";
+          }
+        }
+      }, 1000);
     }
   };
 
   return (
+    <>
     <div className="homeContainer my-5">
       <div>
         <div className="logoImg my-5">
@@ -94,6 +120,9 @@ const Home = () => {
         )}
       </div>
     </div>
+
+    {showInput && <HeroSection />}
+    </>
   );
 };
 

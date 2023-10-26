@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header>
         <div className="header-container">
-      <div className="hamburger my-5" onClick={toggleIcons}>
+      <div className="hamburger my-5" onMouseEnter={toggleIcons}>
         <div>
         <img src={Vector} alt='img'/>
         </div>
